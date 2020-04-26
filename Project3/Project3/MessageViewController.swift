@@ -17,6 +17,18 @@ class MessageViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //Adapted from Wikipedia Lab
+        //grab messages
+        getMessageURLs() { [unowned self] (error, urls) in
+            if error != nil {
+                print(error.debugDescription)
+            }
+            if let goodUrls = urls {
+                self.messageURLs = goodUrls
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -30,22 +42,14 @@ class MessageViewController: UITableViewController, UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
         
             // Configure the cell
-            //cell.picView.download(imageURLs[indexPath.row])
+        cell.textView.text = messageURLs[indexPath.row]//cell.picView.download(imageURLs[indexPath.row])
         
             return cell
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         guard let text = searchBar.text else { return }
-        getMessageURLs(text) { [unowned self] (error, urls) in
-            if error != nil {
-                print(error.debugDescription)
-            }
-            if let goodUrls = urls {
-                self.imageURLs = goodUrls
-                self.tableView.reloadData()
-            }
-        }
+        sendMessage(text)
     }
 
     /*

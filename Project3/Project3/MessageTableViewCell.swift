@@ -11,5 +11,5 @@ import UIKit
 class MessageTableViewCell: UITableViewCell {
     //@IBOutlet weak var picView: UIImageView!
     @IBOutlet weak var textView: UILabel!
-    
+    //todo: upvote and downvote buttons
 }

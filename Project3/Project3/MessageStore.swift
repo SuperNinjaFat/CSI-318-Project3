@@ -9,12 +9,14 @@
 //Code Adapted from Wikipedia Lab
 import Foundation
 
-let baseURL = "https://en.wikipedia.org/w/api.php?action=query&format=json&list=allimages&ailimit=100&aifrom="
+let baseURL = "https://www.stepoutnyc.com/chitchat?key=7ea3e3a4-3380-4484-bf39-81b1390a27e7&client=paul.lindberg@mymail.champlain.edu&limit=20"//.php?action=query&format=json&list=allimages&ailimit=100&aifrom="
 
-func getMessageURLs(_ query: String, completion: @escaping (Error?, [String]?) -> Void) {
-    let searchURL = baseURL + query
+//Adapted from Wikipedia Lab
+//transform into get messages
+func getMessageURLs(completion: @escaping (Error?, [String]?) -> Void) {
+    let fullURL = baseURL
     
-    guard let refreshURL = URL(string: searchURL) else { return }
+    guard let refreshURL = URL(string: fullURL) else { return }
     URLSession.shared.dataTask(with: refreshURL) { (data: Data?, response: URLResponse?, error: Error?) in
         if let error = error { // error is nil if there was none
             print("Refresh Error: \(error.localizedDescription)")
@@ -27,36 +29,46 @@ func getMessageURLs(_ query: String, completion: @escaping (Error?, [String]?) -
         if let data = data {
             do {
                 let decoder = JSONDecoder()
-                struct ImageService: Decodable {
+                struct MessageService: Decodable {
                     
                     enum CodingKeys : String, CodingKey {
-                        case batchcomplete
-                        case cont = "continue"
-                        case query
+                        case count
+                        case date
+                        case messages
                     }
-                    
-                    struct ImageInfo: Decodable {
-                        let name: String
-                        let timestamp: String
-                        let url: String
-                        let descriptionurl: String
-                        let descriptionshorturl: String
-                        let ns: Int
-                        let title: String
+//
+//                    struct ImageInfo: Decodable {
+//                        let name: String
+//                        let timestamp: String
+//                        let url: String
+//                        let descriptionurl: String
+//                        let descriptionshorturl: String
+//                        let ns: Int
+//                        let title: String
+//                    }
+                    struct MessageInfo: Decodable {
+                        let _id: String
+                        let client: String
+                        let date: String
+                        let dislikes: Int
+                        let ip: String
+                        let likes: Int
+                        let loc: [String?]
+                        let message: String
                     }
                     
                     struct Query: Decodable {
-                        let allimages: [ImageInfo]
+                        let allmessages: [MessageInfo]//let allimages: [ImageInfo]
                     }
-                    
-                    let batchcomplete: String
-                    let cont: [String: String]
-                    let query: Query
+//
+                    let count: Int
+                    let date: String
+                    let messages: [MessageInfo]//let messages: Query
                 }
-                let imageService = try decoder.decode(ImageService.self, from: data)
+                let messageService = try decoder.decode(MessageService.self, from: data)
                 //print(messageService)
                 DispatchQueue.main.async {
-                    completion(nil, imageService.query.allimages.map {$0.url})
+                    completion(nil, messageService.messages.map {$0.message})//allmessages.map {$0.message})
                 }
             } catch let err {
                 print("Error decoding JSON: ", err)
@@ -67,4 +79,9 @@ func getMessageURLs(_ query: String, completion: @escaping (Error?, [String]?) -
         }
         
         }.resume()
+}
+
+//send message
+func sendMessage(_ message: String) {
+    return
 }
