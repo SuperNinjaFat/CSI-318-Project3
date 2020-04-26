@@ -11,7 +11,7 @@ import UIKit
 class GenericDataSource: NSObject {
 
 let reuseIdentifier = "messageCell"
-var messageArray: [String] = []
+var messageArray: [ChatMessage] = []
 
 func registerCells(forTableView tableView: UITableView) {
     tableView.register(UINib(nibName: "", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
@@ -37,7 +37,7 @@ extension GenericDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
         
         // Configure the cell
-        cell.textView.text = messageArray[indexPath.row]//cell.picView.download(imageURLs[indexPath.row])
+        cell.textView.text = messageArray[indexPath.row].message//cell.picView.download(imageURLs[indexPath.row])
         
         return cell//return self.loadCell(atIndexPath: indexPath, forTableView: tableView)
     }

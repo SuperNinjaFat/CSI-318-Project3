@@ -13,7 +13,7 @@ let baseURL = "https://www.stepoutnyc.com/chitchat?key=7ea3e3a4-3380-4484-bf39-8
 
 //Adapted from Wikipedia Lab
 //transform into get messages
-func getMessageURLs(completion: @escaping (Error?, [String]?) -> Void) {
+func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
     let fullURL = baseURL
     
     guard let refreshURL = URL(string: fullURL) else { return }
@@ -36,16 +36,7 @@ func getMessageURLs(completion: @escaping (Error?, [String]?) -> Void) {
                         case date
                         case messages
                     }
-//
-//                    struct ImageInfo: Decodable {
-//                        let name: String
-//                        let timestamp: String
-//                        let url: String
-//                        let descriptionurl: String
-//                        let descriptionshorturl: String
-//                        let ns: Int
-//                        let title: String
-//                    }
+                    
                     struct MessageInfo: Decodable {
                         let _id: String
                         let client: String
@@ -68,7 +59,7 @@ func getMessageURLs(completion: @escaping (Error?, [String]?) -> Void) {
                 let messageService = try decoder.decode(MessageService.self, from: data)
                 //print(messageService)
                 DispatchQueue.main.async {
-                    completion(nil, messageService.messages.map {$0.message})//allmessages.map {$0.message})
+                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message)})//allmessages.map {$0.message})
                 }
             } catch let err {
                 print("Error decoding JSON: ", err)

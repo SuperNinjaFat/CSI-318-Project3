@@ -11,19 +11,19 @@ import UIKit
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var userTextView: UITextView!
     var dataSource = GenericDataSource()
 
-    var messageURLs: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         //Adapted from Wikipedia Lab
         //grab messages
-        getMessageURLs() { [unowned self] (error, urls) in
+        getMessageURLs() { [unowned self] (error, chatMessages) in
             if error != nil {
                 print(error.debugDescription)
             }
-            if let goodUrls = urls {
-                self.dataSource.messageArray = goodUrls//self.messageURLs = goodUrls
+            if let goodMessages = chatMessages {
+                self.dataSource.messageArray = goodMessages
                 self.tableView.reloadData()
             }
         }
@@ -32,9 +32,8 @@ class ChatViewController: UIViewController {
         
     }
     
-    //revise into textField
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-        guard let text = searchBar.text else { return }
+    @IBAction func sendButton(_ sender: Any) {
+        guard let text = userTextView.text else { return }
         sendMessage(text)
     }
     /*
