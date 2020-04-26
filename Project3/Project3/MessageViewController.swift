@@ -8,30 +8,44 @@
 
 import UIKit
 
-private let reuseIdentifier = "imageCell"
+private let reuseIdentifier = "messageCell"
 
-class MessageViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate {
+class MessageViewController: UITableViewController, UISearchBarDelegate {
     var messageURLs: [String] = []
+    var imageURLs: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageURLs.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
         
             // Configure the cell
             //cell.picView.download(imageURLs[indexPath.row])
         
             return cell
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        guard let text = searchBar.text else { return }
+        getMessageURLs(text) { [unowned self] (error, urls) in
+            if error != nil {
+                print(error.debugDescription)
+            }
+            if let goodUrls = urls {
+                self.imageURLs = goodUrls
+                self.tableView.reloadData()
+            }
+        }
     }
 
     /*
