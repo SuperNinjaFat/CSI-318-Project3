@@ -38,7 +38,9 @@ extension GenericDataSource: UITableViewDataSource {
         
         // Configure the cell
         cell.textView.text = messageArray[indexPath.row].message//cell.picView.download(imageURLs[indexPath.row])
-        
+        cell.userView.text = messageArray[indexPath.row].client
+        cell.likeVotes.text = String(messageArray[indexPath.row].likes)
+        cell.dislikeVotes.text = String(messageArray[indexPath.row].dislikes)
         return cell//return self.loadCell(atIndexPath: indexPath, forTableView: tableView)
     }
 

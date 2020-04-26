@@ -14,6 +14,7 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var dislikeVotes: UILabel!
     @IBOutlet weak var likeView: UIButton!
     @IBOutlet weak var dislikeView: UIButton!
+    @IBOutlet weak var userView: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBAction func voteLike(_ sender: Any) {
         likeView.isEnabled = false

@@ -9,6 +9,7 @@
 //Adapted from Wikipedia Lab
 import UIKit
 
+//Code Adapted from Wikipedia Lab
 extension UIImageView {
     func download(_ url: String) {
         guard let imageURL = URL(string: url) else { return }
