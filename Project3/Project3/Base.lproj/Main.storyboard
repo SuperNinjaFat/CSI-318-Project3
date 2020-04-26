@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="POD-AC-6bh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pjw-WE-eZo">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Chat View Controller-->
+        <scene sceneID="RBE-We-4vm">
+            <objects>
+                <viewController id="pjw-WE-eZo" customClass="ChatViewController" customModule="Project3" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="53b-0u-Lgw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQA-Sa-rQ7">
+                                <rect key="frame" x="0.0" y="279" width="414" height="617"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="147" id="CG5-33-Q3h" customClass="MessageTableViewCell" customModule="Project3" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="147"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CG5-33-Q3h" id="Xmh-b9-hon">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="147"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cof-hW-8lJ">
+                                                    <rect key="frame" x="76" y="6" width="318" height="124"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cof-hW-8lJ" secondAttribute="bottom" constant="11" id="07V-2K-eS0"/>
+                                                <constraint firstItem="cof-hW-8lJ" firstAttribute="leading" secondItem="Xmh-b9-hon" secondAttribute="leading" constant="20" id="0U3-WQ-9E0"/>
+                                                <constraint firstAttribute="trailing" secondItem="cof-hW-8lJ" secondAttribute="trailing" constant="20" id="8eb-zR-juZ"/>
+                                                <constraint firstItem="cof-hW-8lJ" firstAttribute="top" secondItem="Xmh-b9-hon" secondAttribute="top" constant="6" id="Yxa-JZ-s31"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textView" destination="cof-hW-8lJ" id="Z8b-eN-NW2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RLF-aI-jra">
+                                <rect key="frame" x="0.0" y="68" width="414" height="203"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="SQA-Sa-rQ7" firstAttribute="bottom" secondItem="o6A-k7-Nvq" secondAttribute="bottom" constant="34" id="3eU-Gk-9o2"/>
+                            <constraint firstItem="RLF-aI-jra" firstAttribute="leading" secondItem="o6A-k7-Nvq" secondAttribute="leading" id="9UO-qI-vz3"/>
+                            <constraint firstItem="RLF-aI-jra" firstAttribute="top" secondItem="o6A-k7-Nvq" secondAttribute="top" constant="24" id="F79-a8-BbH"/>
+                            <constraint firstItem="o6A-k7-Nvq" firstAttribute="trailing" secondItem="SQA-Sa-rQ7" secondAttribute="trailing" id="Fcx-bG-FO0"/>
+                            <constraint firstItem="o6A-k7-Nvq" firstAttribute="trailing" secondItem="RLF-aI-jra" secondAttribute="trailing" id="NgF-wF-S5b"/>
+                            <constraint firstItem="SQA-Sa-rQ7" firstAttribute="top" secondItem="RLF-aI-jra" secondAttribute="bottom" constant="8" id="O49-Nu-f53"/>
+                            <constraint firstItem="SQA-Sa-rQ7" firstAttribute="top" secondItem="o6A-k7-Nvq" secondAttribute="top" constant="235" id="bqa-wC-Mf9"/>
+                            <constraint firstItem="SQA-Sa-rQ7" firstAttribute="leading" secondItem="o6A-k7-Nvq" secondAttribute="leading" id="qMN-rM-bYL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="o6A-k7-Nvq"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="SQA-Sa-rQ7" id="XQp-VQ-cbf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nx4-Xb-QGu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="37.681159420289859" y="-532.36607142857144"/>
+        </scene>
         <!--Message View Controller-->
         <scene sceneID="UHH-3g-lwA">
             <objects>
@@ -14,8 +86,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" prompt="Message" id="s5I-KQ-bzw">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="s5I-KQ-bzw">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" returnKeyType="send"/>
                             <scopeButtonTitles>
@@ -28,7 +100,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="99" id="DWT-w3-bBw" customClass="MessageTableViewCell" customModule="Project3" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="118" width="414" height="99"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DWT-w3-bBw" id="pNd-1v-abT">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
@@ -48,9 +120,6 @@
                                         <constraint firstItem="Gj2-Aa-6dS" firstAttribute="leading" secondItem="pNd-1v-abT" secondAttribute="leading" constant="20" id="tgK-tG-eTX"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="textView" destination="Gj2-Aa-6dS" id="dC9-dB-em6"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

@@ -1,22 +1,21 @@
 //
-//  MessageViewController.swift
+//  ChatViewController.swift
 //  Project3
 //
-//  Created by user167012 on 4/25/20.
+//  Created by user167012 on 4/26/20.
 //  Copyright © 2020 user167012. All rights reserved.
 //
 
 import UIKit
 
-private let reuseIdentifier = "messageCell"
+class ChatViewController: UIViewController {
 
-class MessageViewController: UITableViewController, UISearchBarDelegate {
-    var messageArray: [String] = []
+    @IBOutlet weak var tableView: UITableView!
+    var dataSource = GenericDataSource()
+
+    var messageURLs: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         //Adapted from Wikipedia Lab
         //grab messages
         getMessageURLs() { [unowned self] (error, urls) in
@@ -24,33 +23,20 @@ class MessageViewController: UITableViewController, UISearchBarDelegate {
                 print(error.debugDescription)
             }
             if let goodUrls = urls {
-                self.messageArray = goodUrls
+                self.dataSource.messageArray = goodUrls//self.messageURLs = goodUrls
                 self.tableView.reloadData()
             }
         }
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageArray.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
+        self.tableView.delegate = self.dataSource
+        self.tableView.dataSource = self.dataSource
         
-            // Configure the cell
-        cell.textView.text = messageArray[indexPath.row]//cell.picView.download(imageURLs[indexPath.row])
-        
-            return cell
     }
     
+    //revise into textField
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         guard let text = searchBar.text else { return }
         sendMessage(text)
     }
-
     /*
     // MARK: - Navigation
 
