@@ -103,3 +103,30 @@ func sendMessage(_ message: String) {
     }catch{
     }
 }
+
+func likeMessage(_ _id: String) {
+    let fullURL = baseURL + "/like/" + _id
+    guard let endpointUrl = URL(string: fullURL) else {
+        return
+    }
+    //Make JSON to send to send to server
+    var json = [String:Any]()
+    
+    json["key"] = key//json[SKUser.PropertyKey.UUID] = user.UUID
+    json["client"] = client//json[SKUser.PropertyKey.projectID] = user.projectID
+    
+    do {
+        let data = try JSONSerialization.data(withJSONObject: json, options: [])
+        
+        var request = URLRequest(url: endpointUrl)
+        request.httpMethod = "GET"
+        request.httpBody = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let task = URLSession.shared.dataTask(with: request)
+        task.resume()
+
+    }catch{
+    }
+}

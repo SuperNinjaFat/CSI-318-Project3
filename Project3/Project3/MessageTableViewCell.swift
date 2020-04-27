@@ -16,11 +16,14 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var dislikeView: UIButton!
     @IBOutlet weak var userView: UILabel!
     @IBOutlet weak var textView: UITextView!
+    var _id = ""
+    
     @IBAction func voteLike(_ sender: Any) {
         likeView.isEnabled = false
         dislikeView.isEnabled = false
         likeView.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: UIControl.State.disabled)
-        //todo: send like
+        //send like
+        likeMessage(_id)
     }
     @IBAction func voteDislike(_ sender: Any) {
         likeView.isEnabled = false

@@ -41,6 +41,7 @@ extension GenericDataSource: UITableViewDataSource {
         cell.userView.text = messageArray[indexPath.row].client
         cell.likeVotes.text = String(messageArray[indexPath.row].likes)
         cell.dislikeVotes.text = String(messageArray[indexPath.row].dislikes)
+        cell._id = String(messageArray[indexPath.row]._id)
         return cell//return self.loadCell(atIndexPath: indexPath, forTableView: tableView)
     }
 

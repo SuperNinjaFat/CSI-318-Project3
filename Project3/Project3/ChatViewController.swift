@@ -9,15 +9,14 @@
 import UIKit
 
 class ChatViewController: UIViewController {
-
+private let refreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userTextView: UITextView!
     var dataSource = GenericDataSource()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //Adapted from Wikipedia Lab
-        //grab messages
+    //Adapted from Wikipedia Lab
+    //grab messages
+    func refresh() {
         getMessageURLs() { [unowned self] (error, chatMessages) in
             if error != nil {
                 print(error.debugDescription)
@@ -29,6 +28,20 @@ class ChatViewController: UIViewController {
         }
         self.tableView.delegate = self.dataSource
         self.tableView.dataSource = self.dataSource
+    }
+    @objc func refreshSub(_ refreshControl: UIRefreshControl) {
+        
+        refreshControl.endRefreshing()
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Add Refresh Control to Table View
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshSub(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        //grab messages
+        refresh()
         
     }
     
