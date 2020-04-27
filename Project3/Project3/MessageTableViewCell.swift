@@ -22,33 +22,17 @@ class MessageTableViewCell: UITableViewCell {
         likeView.isEnabled = false
         dislikeView.isEnabled = false
         likeView.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: UIControl.State.disabled)
-        //send like (true)
+        likeVotes.text = String(Int(likeVotes.text!)! + 1)
+        //send like
         voteMessage(_id, true)
-        voteThing() { [unowned self] (error, chatMessages) in
-                   if error != nil {
-                       print(error.debugDescription)
-                   }
-//                   if let goodMessages = chatMessages {
-//                       self.dataSource.messageArray = goodMessages
-//                       self.tableView.reloadData()
-//                   }
-               }
     }
     @IBAction func voteDislike(_ sender: Any) {
         likeView.isEnabled = false
         dislikeView.isEnabled = false
         dislikeView.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: UIControl.State.disabled)
-        //send dislike (false)
+        dislikeVotes.text = String(Int(dislikeVotes.text!)! + 1)
+        //send dislike
         voteMessage(_id, false)
-        voteThing() { [unowned self] (error, chatMessages) in
-            if error != nil {
-                print(error.debugDescription)
-            }
-//            if let goodMessages = chatMessages {
-//                self.dataSource.messageArray = goodMessages
-//                self.tableView.reloadData()
-//            }
-        }
     }
     //todo: upvote and downvote buttons
 }

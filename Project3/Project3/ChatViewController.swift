@@ -30,7 +30,7 @@ private let refreshControl = UIRefreshControl()
         self.tableView.dataSource = self.dataSource
     }
     @objc func refreshSub(_ refreshControl: UIRefreshControl) {
-        
+        refresh()
         refreshControl.endRefreshing()
     }
     override func viewDidLoad() {
@@ -48,15 +48,6 @@ private let refreshControl = UIRefreshControl()
     @IBAction func sendButton(_ sender: Any) {
         guard let text = userTextView.text else { return }
         sendMessage(text)
+        refresh()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
