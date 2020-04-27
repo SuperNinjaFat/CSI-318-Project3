@@ -9,12 +9,14 @@
 //Code Adapted from Wikipedia Lab
 import Foundation
 
-let baseURL = "https://www.stepoutnyc.com/chitchat?key=7ea3e3a4-3380-4484-bf39-81b1390a27e7&client=paul.lindberg@mymail.champlain.edu&limit=20"//.php?action=query&format=json&list=allimages&ailimit=100&aifrom="
+private let key = "7ea3e3a4-3380-4484-bf39-81b1390a27e7"
+private let client = "paul.lindberg@mymail.champlain.edu"
+private let baseURL = "https://www.stepoutnyc.com/chitchat"//?key=7ea3e3a4-3380-4484-bf39-81b1390a27e7&client=paul.lindberg@mymail.champlain.edu"
 
 //Adapted from Wikipedia Lab
 //transform into get messages
 func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
-    let fullURL = baseURL
+    let fullURL = baseURL + "?key=" + key + "&client=" + client + "&limit=20"
     
     guard let refreshURL = URL(string: fullURL) else { return }
     URLSession.shared.dataTask(with: refreshURL) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -49,17 +51,17 @@ func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
                     }
                     
                     struct Query: Decodable {
-                        let allmessages: [MessageInfo]//let allimages: [ImageInfo]
+                        let allmessages: [MessageInfo]
                     }
-//
+                    
                     let count: Int
                     let date: String
-                    let messages: [MessageInfo]//let messages: Query
+                    let messages: [MessageInfo]
                 }
                 let messageService = try decoder.decode(MessageService.self, from: data)
                 //print(messageService)
                 DispatchQueue.main.async {
-                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message)})//allmessages.map {$0.message})
+                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message)})
                 }
             } catch let err {
                 print("Error decoding JSON: ", err)
@@ -74,5 +76,30 @@ func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
 
 //send message
 func sendMessage(_ message: String) {
-    return
+    guard let endpointUrl = URL(string: baseURL) else {
+        return
+    }
+    
+    //Make JSON to send to send to server
+    var json = [String:Any]()
+    
+    json["key"] = key//json[SKUser.PropertyKey.UUID] = user.UUID
+    json["client"] = client//json[SKUser.PropertyKey.projectID] = user.projectID
+    json["message"] = message//json[SKUser.PropertyKey.countryCode] = user.countryCode
+    
+    do {
+        let data = try JSONSerialization.data(withJSONObject: json, options: [])
+        
+        var request = URLRequest(url: endpointUrl)
+        request.httpMethod = "POST"
+        request.httpBody = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let task = URLSession.shared.dataTask(with: request)
+        task.resume()
+
+        
+    }catch{
+    }
 }
