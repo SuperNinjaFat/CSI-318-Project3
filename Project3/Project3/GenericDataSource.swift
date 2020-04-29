@@ -12,6 +12,7 @@ class GenericDataSource: NSObject {
 
 let reuseIdentifier = "messageCell"
 var messageArray: [ChatMessage] = []
+var voteArray: [[Int]] = []
 
 func registerCells(forTableView tableView: UITableView) {
     tableView.register(UINib(nibName: "", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
@@ -37,12 +38,12 @@ extension GenericDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MessageTableViewCell
         
         // Configure the cell
-        cell.textView.text = messageArray[indexPath.row].message//cell.picView.download(imageURLs[indexPath.row])
+        cell.textView.text = messageArray[indexPath.row].message
         cell.userView.text = messageArray[indexPath.row].client
         cell.likeVotes.text = String(messageArray[indexPath.row].likes)
         cell.dislikeVotes.text = String(messageArray[indexPath.row].dislikes)
         cell._id = String(messageArray[indexPath.row]._id)
-        return cell//return self.loadCell(atIndexPath: indexPath, forTableView: tableView)
+        return cell
     }
 
 }

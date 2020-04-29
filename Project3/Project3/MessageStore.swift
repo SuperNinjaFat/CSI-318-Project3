@@ -61,7 +61,7 @@ func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
                 let messageService = try decoder.decode(MessageService.self, from: data)
                 //print(messageService)
                 DispatchQueue.main.async {
-                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message)})
+                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message, vote: 0)})
                 }
             } catch let err {
                 print("Error decoding JSON: ", err)
