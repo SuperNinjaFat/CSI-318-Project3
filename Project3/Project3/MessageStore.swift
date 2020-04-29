@@ -75,41 +75,39 @@ func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
 }
 
 //Code Adapted from https://gist.github.com/dmathewwws/63064a4114fba3769448602208f66c0d
+//and https://stackoverflow.com/questions/32064754/how-to-use-stringbyaddingpercentencodingwithallowedcharacters-for-a-url-in-swi
 //send message
-func sendMessage(_ message: String) {
+func sendMessage(_ message: String) -> Bool {
     guard let endpointUrl = URL(string: baseURL) else {
-        return
+        return false
     }
-    
     //Make JSON to send to send to server
-    var json = [String:Any]()
-    
-    json["key"] = key//json[SKUser.PropertyKey.UUID] = user.UUID
-    json["client"] = client//json[SKUser.PropertyKey.projectID] = user.projectID
-    json["message"] = message//json[SKUser.PropertyKey.countryCode] = user.countryCode
-    
-    do {
-        let data = try JSONSerialization.data(withJSONObject: json, options: [])
-        
-        var request = URLRequest(url: endpointUrl)
-        request.httpMethod = "POST"
-        request.httpBody = data
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-        let task = URLSession.shared.dataTask(with: request)
-        task.resume()
-
-        
-    }catch{
+    var request = URLRequest(url: endpointUrl)
+    request.httpMethod = "POST"
+    let postString = "key=" + key + "&client=" + client + "&message=" + message.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!
+    request.httpBody = postString.data(using: .utf8)
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        do {
+            guard let data = data else {
+                return
+            }
+            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary else {
+                return
+            }
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
     }
+    task.resume()
+    return true
 }
 
-func voteMessage(_ _id: String, _ voteBool: Bool) {
+func voteMessage(_ _id: String, _ voteBool: Bool) -> Bool {
     var vote = ""
     if voteBool { vote = "like"} else { vote = "dislike" }
     let fullURL = baseURL + "/" + vote + "/" + _id + "?key=" + key + "&client=" + client
-    guard let refreshURL = URL(string: fullURL) else { return }
+    guard let refreshURL = URL(string: fullURL) else { return false }
     let task = URLSession.shared.dataTask(with: refreshURL)
     task.resume()
+    return true
 }

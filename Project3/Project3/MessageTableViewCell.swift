@@ -19,20 +19,23 @@ class MessageTableViewCell: UITableViewCell {
     var _id = ""
     
     @IBAction func voteLike(_ sender: Any) {
-        likeView.isEnabled = false
-        dislikeView.isEnabled = false
-        likeView.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: UIControl.State.disabled)
-        likeVotes.text = String(Int(likeVotes.text!)! + 1)
         //send like
-        voteMessage(_id, true)
+        if voteMessage(_id, true)
+        {
+            likeView.isEnabled = false
+            dislikeView.isEnabled = false
+            likeView.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: UIControl.State.disabled)
+            likeVotes.text = String(Int(likeVotes.text!)! + 1)
+        }
     }
     @IBAction func voteDislike(_ sender: Any) {
-        likeView.isEnabled = false
-        dislikeView.isEnabled = false
-        dislikeView.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: UIControl.State.disabled)
-        dislikeVotes.text = String(Int(dislikeVotes.text!)! + 1)
         //send dislike
-        voteMessage(_id, false)
+        if voteMessage(_id, false)
+        {
+            likeView.isEnabled = false
+            dislikeView.isEnabled = false
+            dislikeView.setImage(UIImage(systemName: "hand.thumbsdown.fill"), for: UIControl.State.disabled)
+            dislikeVotes.text = String(Int(dislikeVotes.text!)! + 1)
+        }
     }
-    //todo: upvote and downvote buttons
 }

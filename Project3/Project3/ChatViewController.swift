@@ -47,7 +47,7 @@ private let refreshControl = UIRefreshControl()
     
     @IBAction func sendButton(_ sender: Any) {
         guard let text = userTextView.text else { return }
-        sendMessage(text)
+        if sendMessage(text) { userTextView.text = "" } else { return }
         refresh()
     }
 }
