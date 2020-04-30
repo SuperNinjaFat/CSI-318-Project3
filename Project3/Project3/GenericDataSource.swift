@@ -12,7 +12,6 @@ class GenericDataSource: NSObject {
 
 let reuseIdentifier = "messageCell"
 var messageArray: [ChatMessage] = []
-var voteArray: [[Int]] = []
 
 func registerCells(forTableView tableView: UITableView) {
     tableView.register(UINib(nibName: "", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
@@ -43,6 +42,10 @@ extension GenericDataSource: UITableViewDataSource {
         cell.likeVotes.text = String(messageArray[indexPath.row].likes)
         cell.dislikeVotes.text = String(messageArray[indexPath.row].dislikes)
         cell._id = String(messageArray[indexPath.row]._id)
+        if messageArray[indexPath.row].vote != nil
+        {
+            if messageArray[indexPath.row].vote == true { cell.stateLike() } else { cell.stateDislike() }
+        }
         return cell
     }
 

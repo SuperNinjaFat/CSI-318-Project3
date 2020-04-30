@@ -17,5 +17,5 @@ struct ChatMessage {
     var likes: Int
     var loc: [String?]
     var message: String
-    var vote: Int8
+    var vote: Bool?
 }

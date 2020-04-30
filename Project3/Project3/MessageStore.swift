@@ -9,9 +9,51 @@
 //Code Adapted from Wikipedia Lab
 import Foundation
 
+private let file = "votes"
 private let key = "7ea3e3a4-3380-4484-bf39-81b1390a27e7"
 private let client = "paul.lindberg@mymail.champlain.edu"
 private let baseURL = "https://www.stepoutnyc.com/chitchat"//?key=7ea3e3a4-3380-4484-bf39-81b1390a27e7&client=paul.lindberg@mymail.champlain.edu"
+var votes: [Vote] = []
+
+//load voted messages from a file
+//sub function from getMessageURLs
+func getVoteIDs() {
+    var wordList = [""]
+    do {
+        let wordString = try String(contentsOfFile: Bundle.main.path(forResource: file, ofType: "")!)
+        wordList = wordString.components(separatedBy: ",")
+        wordList.removeFirst()
+        for (index, element) in wordList.enumerated() {
+            if index % 2 == 0 { //even
+                votes.append(Vote(_id: element, vote: nil))
+            }
+            else { //odd
+                let voteBool = String(element.filter { !"\n".contains($0) })
+                votes[index-1].vote = voteBool == "like" //OOOh so satisfying
+            }
+        }
+    }
+    catch let err {
+        print("Error grabbing votes: ", err)
+    }
+}
+
+//get the vote object of a specific message
+//true = like, false = dislike, nil = error
+extension Array where Element == Vote {
+    func obtainVote(_ _id: String) -> Vote? {
+        for index in 0..<votes.count {
+            let vote = votes[index]
+            if vote._id == _id {
+                return vote
+            }
+        }
+        return nil
+//        if let vote: Vote = votes[votes.firstIndex(where: { $0._id == _id})!] {
+//            return vote
+//        }
+    }
+}
 
 //Adapted from Wikipedia Lab
 //transform into get messages
@@ -60,8 +102,9 @@ func getMessageURLs(completion: @escaping (Error?, [ChatMessage]?) -> Void) {
                 }
                 let messageService = try decoder.decode(MessageService.self, from: data)
                 //print(messageService)
+                getVoteIDs()
                 DispatchQueue.main.async {
-                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message, vote: 0)})
+                    completion(nil, messageService.messages.map {ChatMessage(_id: $0._id, client: $0.client, date: $0.date, dislikes: $0.dislikes, ip: $0.ip, likes: $0.likes, loc: $0.loc, message: $0.message, vote: votes.obtainVote($0._id)?.vote)})
                 }
             } catch let err {
                 print("Error decoding JSON: ", err)

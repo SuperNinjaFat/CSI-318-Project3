@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06217F5F245A464F002F6DC3 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06217F5E245A464F002F6DC3 /* Vote.swift */; };
+		06217F61245A4CBB002F6DC3 /* votes in Resources */ = {isa = PBXBuildFile; fileRef = 06217F60245A4CBB002F6DC3 /* votes */; };
 		06854FD32454EE52006515D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06854FD22454EE52006515D1 /* AppDelegate.swift */; };
 		06854FD52454EE52006515D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06854FD42454EE52006515D1 /* SceneDelegate.swift */; };
 		06854FDA2454EE52006515D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06854FD82454EE52006515D1 /* Main.storyboard */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06217F5E245A464F002F6DC3 /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		06217F60245A4CBB002F6DC3 /* votes */ = {isa = PBXFileReference; lastKnownFileType = text; path = votes; sourceTree = "<group>"; };
 		06854FCF2454EE52006515D1 /* Project3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06854FD22454EE52006515D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06854FD42454EE52006515D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,12 +76,14 @@
 				06854FD82454EE52006515D1 /* Main.storyboard */,
 				06854FEA2454FD3F006515D1 /* MessageTableViewCell.swift */,
 				06E9FFB624563D7C00C69AE3 /* ChatMessage.swift */,
+				06217F5E245A464F002F6DC3 /* Vote.swift */,
 				06854FF224554646006515D1 /* MessageStore.swift */,
 				06E9FFB424562A7F00C69AE3 /* GenericDataSource.swift */,
 				06854FDB2454EE56006515D1 /* Assets.xcassets */,
 				06854FDD2454EE56006515D1 /* LaunchScreen.storyboard */,
 				06854FE02454EE56006515D1 /* Info.plist */,
 				06854FF4245546FE006515D1 /* UIImageView+Download.swift */,
+				06217F60245A4CBB002F6DC3 /* votes */,
 			);
 			path = Project3;
 			sourceTree = "<group>";
@@ -142,6 +148,7 @@
 			files = (
 				06854FDF2454EE56006515D1 /* LaunchScreen.storyboard in Resources */,
 				06854FDC2454EE56006515D1 /* Assets.xcassets in Resources */,
+				06217F61245A4CBB002F6DC3 /* votes in Resources */,
 				06854FDA2454EE52006515D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,6 +167,7 @@
 				06854FF5245546FE006515D1 /* UIImageView+Download.swift in Sources */,
 				06E9FFB324562A3200C69AE3 /* ChatViewController.swift in Sources */,
 				06854FD52454EE52006515D1 /* SceneDelegate.swift in Sources */,
+				06217F5F245A464F002F6DC3 /* Vote.swift in Sources */,
 				06854FF324554646006515D1 /* MessageStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
